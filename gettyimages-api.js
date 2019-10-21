@@ -47,8 +47,8 @@ class GettyImagesApi {
             throw new SdkException("must specify an apiKey");
         }
 
-        if (!credentials.apiSecret) {
-            throw new SdkException("must specify an apiSecret");
+        if (!credentials.apiSecret && !credentials.forceAccessToken) {
+            throw new SdkException("must specify an apiSecret or access token");
         }
 
         if (!hostName) {
@@ -57,7 +57,7 @@ class GettyImagesApi {
 
         this.hostName = hostName;
         this.credentials = credentials;
-        this.creds = new Credentials(credentials.apiKey, credentials.apiSecret, credentials.username, credentials.password, credentials.refresh_token, hostName);
+        this.creds = new Credentials(credentials.apiKey, credentials.apiSecret, credentials.username, credentials.password, credentials.refresh_token, hostName, credentials.forceAccessToken);
     }
 
     getAccessToken() {
